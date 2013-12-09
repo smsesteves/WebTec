@@ -13,13 +13,12 @@ require("db.php");
 
 $db = getDB();
 
-$stmt = $db->prepare('SELECT * FROM taxes');
+$stmt = $db->prepare('SELECT username FROM users');
 $stmt->execute();
 
 while ($result = $stmt->fetch()) {
-    $taxes[] = array('TaxType' => $result['TaxType'],
-        'TaxPercentage' => $result['TaxPercentage']);
+    $usernames[] = $result['username'];
 }
 
-echo json_encode($taxes);
+echo json_encode($usernames);
 ?>

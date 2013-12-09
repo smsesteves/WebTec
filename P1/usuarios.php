@@ -4,16 +4,22 @@
 
 $(document).ready(function() {
 
+    var usernaoexiste = true;
+    var string_aux = '';
+    var userNames;
 
-    function verificarDados() {
-        var nsenha = document.getElementById('nova_senha');
-        var nsenha2 = document.getElementById('nova_senha2');
+    var getUsernames = $.getJSON("api/getUsernames.php");
+        getUsernames.done(function(data) {
+            console.log("json usernames = " + JSON.stringify(data));
 
-        if (nsenha.value !== nsenha2.value) {
-            alert("Novas são diferentes!!!");
-            return false;
-        }
-    }
+            userNames = data;
+
+
+        });
+        getUsernames.fail(function(data, textStatus, errorThrown) {
+            console.log("error " + textStatus);
+        });
+
     function validacao() {
         var novaSenha = $('#nova_senha');
         var novaSenhaConf = $('#nova_senha2');
@@ -26,16 +32,27 @@ $(document).ready(function() {
             if (novaSenha.val() != novaSenhaConf.val()) {
                 novaSenha.addClass("error");
                 novaSenhaConf.addClass("error");
-                
+                alert("Novas são diferentes!!!");
                 return false;
-            }   
+            } 
+
+
+        var usernovo = $('#username');
+
+
+        if($.inArray(usernovo.val(), userNames)){
+            alert("User já existente!");
+            usernovo.addClass("error");
+            return false;
+        } 
+
             return true;
         
 
 
     }
         $('#editar_form').submit(function() {
-             return validacao();
+             return (validacao());
         });
 
 });
@@ -73,7 +90,7 @@ function cadastrarUsuário() {
 <script src="funcoesFormulario.js"></script>
 <div id="editar_perfil">
     <br><h3 style="text-align:left;">  Adicionar utilizador</h3><br>
-    <form id="editar_form" action="cadastrar.php" method="post" onsubmit="formSuccess('Utilizador')">
+    <form id="editar_form" action="cadastrar.php" method="post" >
         <table id="tbl_editarperfil">
             <tr><th>Username: </th> <td><input type="text" id="username"  required  name="username"></td></tr>
             <tr><th>Senha: </th> <td> <input type="password" id="nova_senha" name="senha"  required  pattern=".{6,20}$" oninvalid="this.setCustomValidity('A password tem de ter entre 6 e 20 carateres.')" oninput="setCustomValidity('')"></td></tr>

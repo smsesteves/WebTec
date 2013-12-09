@@ -15,5 +15,5 @@ $sql = "INSERT INTO users (username,password,nome, email, morada, contacto,role_
 $stmt = $db->prepare($sql);
 $stmt->execute(array($_POST['username'],md5($_POST['senha']),$_POST['nome'],$_POST['email'],$_POST['morada'],$_POST['contacto'],$defaultype));
 
-//header("Location:index.php");
+header("Location:index.php?pagina=admin");
 ?>

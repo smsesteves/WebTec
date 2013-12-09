@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
+    header('Location:index.php');
+}
+?>
+
 <?php 
 
 header('Content-Type: application/json');
