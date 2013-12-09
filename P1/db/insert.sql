@@ -55,7 +55,7 @@ INSERT INTO products (  ProductDescription, UnitPrice, UnitOfMeasure) VALUES ('M
 
 
 INSERT INTO taxes VALUES ('IVA','PT', 'NOR', 23.00, 'IVA Normal');
-INSERT INTO taxes VALUES ('IS','PT','1', 11.5, 'IS Escala');
+INSERT INTO taxes VALUES ('IRS','PT','1', 11.5, 'IRS Escala');
 
 
 
@@ -86,36 +86,31 @@ VALUES ( 'N', '2013-11-11 10:00:00','7', '2013-10-11 10:00:00', 'FT', '2013-10-1
 
 
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IVA',5, 2);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IS',2, 1);
+INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IRS',2, 1);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IVA',3, 2);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (3,'IVA',7, 10);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (3,'IVA',8, 20);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (4,'IS',20, 1);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (5,'IS',21, 2);
+INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (4,'IRS',20, 1);
+INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (5,'IRS',21, 2);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (6,'IVA',22, 3);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (7,'IS',23, 4);
+INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (7,'IRS',23, 4);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (8,'IVA',24, 5);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (9,'IVA',25, 6);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (9,'IVA',26, 7);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 1, 6);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 2, 7);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IS', 3, 5);
+INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IRS', 3, 5);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 4, 7);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 5, 2);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 6, 3);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IS', 7, 3);
+INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IRS', 7, 3);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 8, 3);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 9, 3);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 6, 3);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 6, 3);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IS', 3, 3);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 6, 3);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 2, 3);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (10,'IVA', 6, 3);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IVA',5, 2);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IS',2, 1);
+INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IRS',2, 1);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IVA',3, 2);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (2,'IVA',3, 2);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IVA',5, 2);
-INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IS',2, 1);
+INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IRS',2, 1);
 INSERT INTO lines(InvoiceNo, TaxType, ProductCode, Quantity) VALUES (1,'IVA',3, 2);
