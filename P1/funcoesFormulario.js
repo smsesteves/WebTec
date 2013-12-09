@@ -15,7 +15,7 @@ function formSuccess(string){
 var idValue = '';
 
 if(string == 'Produto')
-	idValue = '' + document.getElementById("ProductCode").value;
+	idValue = '' + document.getElementById("ProductDescription").value;
 
 if(string == 'Cliente')
 	idValue = '' + document.getElementById("CustomerID").value;	

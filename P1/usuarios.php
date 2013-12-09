@@ -46,6 +46,7 @@ $(document).ready(function() {
             return false;
         } 
 
+            alert('Utilizador inserido com sucesso!');
             return true;
         
 
