@@ -2,7 +2,7 @@
 
 //session_start();
 
-$dbmxl = simplexml_load_file("MARGULIS_LESSA_LDA_VERIFIED_SAFT_1.03_01.xml");
+$dbmxl = simplexml_load_file("LTW_T2G4.xml");
 $db = new PDO('sqlite:./db/db_t2.db');
 
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

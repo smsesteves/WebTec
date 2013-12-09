@@ -3,7 +3,7 @@
 $db = new PDO('sqlite:./db/db_t1.db');
 
 // TODO: Filename e sempre o mesmo
-$filename = "MARGULIS_LESSA_LDA_VERIFIED_SAFT_1.03_01.xml";
+$filename = "LTW_T2G4.xml";
 //$filename = $_POST['filename'];
 
 $data = implode("", file($filename));
