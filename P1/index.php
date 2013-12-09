@@ -8,6 +8,9 @@ ob_start(); // bufferiza a mensagem
 
 
         <link rel="stylesheet" href="geral.css">
+        <link rel="icon" 
+      type="image/ico" 
+      href="/images/favicon.ico">
     </head>
     <body>
         <div id="bodywrap">
