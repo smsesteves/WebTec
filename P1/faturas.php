@@ -15,6 +15,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
         var numerosInvoices;
         var cntLines = 0;
         var taxTypes = [];
+         var prodCodes = [];
         var taxPercentages = [];
 
         var getNumerosInvoices = $.getJSON("api/getInvoicesNo.php");
@@ -39,9 +40,21 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
                 taxTypes[t] = taxes[t].TaxType;
                 taxPercentages[t] = taxes[t].TaxPercentage;
             }
-            console.log("TAXteypes = " + taxTypes);
+            console.log("TAXtypes = " + taxTypes);
         });
         getTaxes.fail(function(data, textStatus, errorThrown) {
+            console.log("error " + textStatus);
+        });
+
+        var getProdCodes = $.getJSON("api/getProductCode.php");
+        getProdCodes.done(function(products) {
+            console.log("Products = " + JSON.stringify(products));
+            for (t in products) {
+                prodCodes[t] = products[t];
+            }
+            console.log("Products = " + prodCodes);
+        });
+        getProdCodes.fail(function(data, textStatus, errorThrown) {
             console.log("error " + textStatus);
         });
 
@@ -56,6 +69,23 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
                 } else {
                     console.log("BCCCCCCCCC = " + taxTypes[t]);
                     htmlSelect += '<option value="' + taxTypes[t] + '">' + taxTypes[t] + "</option>";
+                }
+            }
+            htmlSelect += '</select>';
+            return htmlSelect;
+        }
+
+         function gerarSelectProdCode(pcode) {
+            var classe = 'line' + cntLines;
+            var htmlSelect = '<select id="ProductCode" class = "' + classe + '">';
+            for (t in prodCodes) {
+                if (prodCodes[t] == pcode) {
+                    
+                    console.log ("BCCCCCCCCC = " + prodCodes[t]);
+                    htmlSelect += '<option value="' + prodCodes[t] + '" selected>' + prodCodes[t] + "</option>";
+                } else {
+                    console.log("BCCCCCCCCC = " + prodCodes[t]);
+                    htmlSelect += '<option value="' + prodCodes[t] + '">' + prodCodes[t] + "</option>";
                 }
             }
             htmlSelect += '</select>';
@@ -111,13 +141,13 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
             $('#btnAddLine').before('<tr class="dinamico ' + classe + '"><th class="lineName">' + "Line X" + '</th><td><button id="btnRemover" class="' + classe + '"type="button">Remover</button></td></tr>');
 
             aux = (!line) ? "" : line.LineNumber;
-            $('#btnAddLine').before('<tr class="dinamico ' + classe + '"> <th>LineNumber:</th> <td><input id="LineNumber" disabled type="text" name="nome" value="' + aux + '"></td> </tr>');
+            $('#btnAddLine').before('<tr class="dinamico ' + classe + '"> <th>LineNumber:</th> <td><input id="LineNumber" required disabled type="text" name="nome" value="' + aux + '"></td> </tr>');
 
             aux = (!line) ? "" : line.ProductCode;
-            $('#btnAddLine').before('<tr class="dinamico ' + classe + '"> <th>ProductCode:</th> <td><input id="ProductCode" class = "' + classe + '" type="text" name="nome" value="' + aux + '"></td> </tr>');
+            $('#btnAddLine').before('<tr class="dinamico ' + classe + '"> <th>ProductCode:</th> <td>' + gerarSelectProdCode(aux) + '</td></tr>');
 
             aux = (!line) ? "" : line.Quantity;
-            $('#btnAddLine').before('<tr class="dinamico ' + classe + '"> <th>Quantity:</th> <td><input id="Quantity" class = "' + classe + '" type="text" name="nome" value="' + aux + '"></td> </tr>');
+            $('#btnAddLine').before('<tr class="dinamico ' + classe + '"> <th>Quantity:</th> <td><input id="Quantity"  required  class = "' + classe + '" type="text" name="nome" value="' + aux + '"   pattern="^[0-9]+(?:\.[0-9]+)?$" oninvalid="this.setCustomValidity('+"'Preencha este campo com um número positivo com ou sem casa decimal. Ex: 2.50'"+')" oninput="setCustomValidity('+"''"+')"+></td> </tr>');
 
             aux = (!line) ? "" : line.UnitPrice;
             $('#btnAddLine').before('<tr class="dinamico ' + classe + '"> <th>UnitPrice:</th> <td><input id="UnitPrice" disabled type="text" name="nome" value="' + aux + '"></td> </tr>');
@@ -347,11 +377,11 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
         <table id="tabela">
            <tr> <th>InvoiceNo:</th> <td><input id="InvoiceNo" type="text" name="nome" value="" pattern=".{1,30}$"  oninvalid="this.setCustomValidity('Preencha este campo com uma sequência de números com um máximo de 60 carateres.')" oninput="setCustomValidity('')"></td> </tr>
             <tr><th colspan="2">DocumentStatus</th></tr>
-            <tr> <th>InvoiceStatusDate:</th> <td><input id="InvoiceStatusDate" required type="text" name="nome" value="" pattern="\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}"   oninvalid="this.setCustomValidity('Por favor preencha este campo seguindo o seguinte formato: AAAA-MM-DD HH:MM:SS')" oninput="setCustomValidity('')"></td> </tr>
+            <tr> <th>InvoiceStatusDate:</th> <td><input id="InvoiceStatusDate" required type="text" name="nome" value="" pattern="^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}$"   oninvalid="this.setCustomValidity('Por favor preencha este campo seguindo o seguinte formato: AAAA-MM-DD HH:MM:SS')" oninput="setCustomValidity('')"></td> </tr>
           <tr> <th>SourceBilling:</th> <td><input id="SourceBilling" required type="text" name="nome" value="" pattern="[PIM]"   oninvalid="this.setCustomValidity('Por favor preencha este campo com P, I ou M.')" oninput="setCustomValidity('')"></td> </tr>
             <tr> <th>SourceID:</th> <td><input id="SourceID" type="text" required name="nome" disabled></td> </tr>
             <tr> <th>Hash:</th> <td><input id="Hash" type="text" name="nome" required value="" pattern=".{1,172}" oninvalid="this.setCustomValidity('Preencha este campo com um máximo de 172 carateres.')" oninput="setCustomValidity('')"></td> </tr>
-            <tr> <th>InvoiceDate:</th> <td><input id="InvoiceDate" type="text" required name="nome" value="" pattern="^\d{4}-\d{2}-\d{2}$"  oninvalid="this.setCustomValidity('Por favor preencha este campo seguindo o seguinte formato: AAAA-MM-DD HH:MM:SS')"></td> </tr>
+            <tr> <th>InvoiceDate:</th> <td><input id="InvoiceDate" type="text" required name="nome" value="" pattern="\d{4}-\d{2}-\d{2}"  oninvalid="this.setCustomValidity('Por favor preencha este campo seguindo o seguinte formato: AAAA-MM-DD')" oninput="setCustomValidity('')"></td> </tr>
           
             <tr><th colspan="2">SpecialRegimes</th></tr>
             <tr> <th>SelfBillingIndicator:</th> <td><input id="SelfBillingIndicator" required type="text" name="nome" value="" pattern="[0-1]" oninvalid="this.setCustomValidity('Preencha este campo apenas com 0 ou 1.')" oninput="setCustomValidity('')"></td> </tr>
