@@ -18,21 +18,22 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
          var prodCodes = [];
         var taxPercentages = [];
 
-        var getNumerosInvoices = $.getJSON("api/getInvoicesNo.php");
-        getNumerosInvoices.done(function(data) {
-            console.log("json numeros faturas = " + JSON.stringify(data));
+        function getNInvoice(){
+            var getNumerosInvoices = $.getJSON("api/getInvoicesNo.php");
+            getNumerosInvoices.done(function(data) {
+                console.log("json numeros faturas = " + JSON.stringify(data));
 
-            numerosInvoices = data;
+                numerosInvoices = data;
 
-            for (abc in numerosInvoices) {
-                console.log(">>> " + numerosInvoices[abc]);
-            }
-        });
-        getNumerosInvoices.fail(function(data, textStatus, errorThrown) {
-            console.log("error " + textStatus);
-        });
-
-
+                for (abc in numerosInvoices) {
+                    console.log(">>> " + numerosInvoices[abc]);
+                }
+            });
+            getNumerosInvoices.fail(function(data, textStatus, errorThrown) {
+                console.log("error " + textStatus);
+            });
+        }
+        getNInvoice();
         var getTaxes = $.getJSON("api/getTaxes.php");
         getTaxes.done(function(taxes) {
             console.log("TAXESSSSS = " + JSON.stringify(taxes));
@@ -264,9 +265,6 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
             atualizarTudo();
         });
 
-        $("#btnAtualizar").click(function() {
-            gerarJSON();
-        });
 
         $("#InvoiceNo").blur(function() {
             limparLines();
@@ -278,6 +276,15 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
             } else {
                 limparFormulario('formularioInvoice');
             }
+        });
+
+
+        $('#formularioInvoice').submit(function() {
+             gerarJSON();
+             getNInvoice();
+
+             
+             
         });
 
         function gerarJSON() {
@@ -350,8 +357,12 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
                 console.log("=== " + $(this).val());
                 //console.log("ln = " + $(this).next("#LineNumber").val());
             });
+
+            console.log("aqui" + JSON.stringify(jsonInvoice));
+
             var retorno = $.ajax({
                 type: 'POST',
+                dataType : "json",
                 url: 'api/updateInvoice.php',
                 data: {json: JSON.stringify(jsonInvoice)}
             });
@@ -373,8 +384,8 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
 <?php if ($_SESSION['role_id'] == 0 || $_SESSION['role_id'] == 1) { ?>
 <div id="pesquisa_produto" style="text-align:center;">
     <br><h3 style="text-align:left;">  Gerir Faturas</h3><br>
-    <form id="formularioInvoice">
-        <table id="tabela">
+    <form id="formularioInvoice" onsubmit="formSuccess('Fatura')">
+        <table id="tabela" >
            <tr> <th>InvoiceNo:</th> <td><input id="InvoiceNo" type="text" name="nome" value="" pattern=".{1,30}$"  oninvalid="this.setCustomValidity('Preencha este campo com uma sequência de números com um máximo de 60 carateres.')" oninput="setCustomValidity('')"></td> </tr>
             <tr><th colspan="2">DocumentStatus</th></tr>
             <tr> <th>InvoiceStatusDate:</th> <td><input id="InvoiceStatusDate" required type="text" name="nome" value="" pattern="^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}$"   oninvalid="this.setCustomValidity('Por favor preencha este campo seguindo o seguinte formato: AAAA-MM-DD HH:MM:SS')" oninput="setCustomValidity('')"></td> </tr>
@@ -382,7 +393,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
             <tr> <th>SourceID:</th> <td><input id="SourceID" type="text" required name="nome" disabled></td> </tr>
             <tr> <th>Hash:</th> <td><input id="Hash" type="text" name="nome" required value="" pattern=".{1,172}" oninvalid="this.setCustomValidity('Preencha este campo com um máximo de 172 carateres.')" oninput="setCustomValidity('')"></td> </tr>
             <tr> <th>InvoiceDate:</th> <td><input id="InvoiceDate" type="text" required name="nome" value="" pattern="\d{4}-\d{2}-\d{2}"  oninvalid="this.setCustomValidity('Por favor preencha este campo seguindo o seguinte formato: AAAA-MM-DD')" oninput="setCustomValidity('')"></td> </tr>
-          
+            <tr> <th>InvoiceType:</th> <td><input id="InvoiceType" type="text" name="nome" value="" pattern="FT|FS|FR|ND|NC|VD|TV|TD|AA|DA"  oninvalid="this.setCustomValidity('Por favor preencha este campo com FT, FS, FR, ND, NC, VD, TV, TD, AA ou DA')" oninput="setCustomValidity('')"></td> </tr>
             <tr><th colspan="2">SpecialRegimes</th></tr>
             <tr> <th>SelfBillingIndicator:</th> <td><input id="SelfBillingIndicator" required type="text" name="nome" value="" pattern="[0-1]" oninvalid="this.setCustomValidity('Preencha este campo apenas com 0 ou 1.')" oninput="setCustomValidity('')"></td> </tr>
             <tr> <th>CashVATSchemeIndicator:</th> <td><input id="CashVATSchemeIndicator" required type="text" name="nome" value="" pattern="[0-1]" oninvalid="this.setCustomValidity('Preencha este campo apenas com 0 ou 1.')" oninput="setCustomValidity('')"></td> </tr>
