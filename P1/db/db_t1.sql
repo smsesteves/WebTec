@@ -134,6 +134,12 @@ CREATE TABLE lines(
     FOREIGN KEY(ProductCode) REFERENCES products(ProductCode)
 );
 
+CREATE TRIGGER update_lines_description
+AFTER INSERT ON lines
+WHEN new.Description is NULL
+BEGIN
+    UPDATE lines SET Description = (SELECT ProductDescription FROM products WHERE lines.ProductCode = products.ProductCode);
+END;
 
 CREATE TRIGGER update_lines_taxes
 BEFORE UPDATE ON taxes
