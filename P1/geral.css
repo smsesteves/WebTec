@@ -35,7 +35,7 @@ color: #ffffff;
 background: url(./images/wrap.png) repeat;
 }
 
-#menu{
+#menu,#separator{
     background-color: #222222;
     border-radius: 5px;
 

@@ -347,26 +347,26 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == FALSE) {
         <table id="tabela">
            <tr> <th>InvoiceNo:</th> <td><input id="InvoiceNo" type="text" name="nome" value="" pattern=".{1,30}$"  oninvalid="this.setCustomValidity('Preencha este campo com uma sequência de números com um máximo de 60 carateres.')" oninput="setCustomValidity('')"></td> </tr>
             <tr><th colspan="2">DocumentStatus</th></tr>
-            <tr> <th>InvoiceStatusDate:</th> <td><input id="InvoiceStatusDate" required type="text" name="nome" value="" pattern="\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}"   oninvalid="this.setCustomValidity('Por favor preencha este campo seguindo o formato standard para datas. Ex: AAAA-MM-DD HH:MM:SS')" oninput="setCustomValidity('')"></td> </tr>
+            <tr> <th>InvoiceStatusDate:</th> <td><input id="InvoiceStatusDate" required type="text" name="nome" value="" pattern="\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}"   oninvalid="this.setCustomValidity('Por favor preencha este campo seguindo o seguinte formato: AAAA-MM-DD HH:MM:SS')" oninput="setCustomValidity('')"></td> </tr>
           <tr> <th>SourceBilling:</th> <td><input id="SourceBilling" required type="text" name="nome" value="" pattern="[PIM]"   oninvalid="this.setCustomValidity('Por favor preencha este campo com P, I ou M.')" oninput="setCustomValidity('')"></td> </tr>
-            <tr> <th>SourceID:</th> <td><input id="SourceID" type="text" name="nome" value=""></td> </tr>
-            <tr> <th>Hash:</th> <td><input id="Hash" type="text" name="nome" value=""></td> </tr>
-            <tr> <th>InvoiceDate:</th> <td><input id="InvoiceDate" type="text" name="nome" value=""></td> </tr>
+            <tr> <th>SourceID:</th> <td><input id="SourceID" type="text" required name="nome" disabled></td> </tr>
+            <tr> <th>Hash:</th> <td><input id="Hash" type="text" name="nome" required value="" pattern=".{1,172}" oninvalid="this.setCustomValidity('Preencha este campo com um máximo de 172 carateres.')" oninput="setCustomValidity('')"></td> </tr>
+            <tr> <th>InvoiceDate:</th> <td><input id="InvoiceDate" type="text" required name="nome" value="" pattern="^\d{4}-\d{2}-\d{2}$"  oninvalid="this.setCustomValidity('Por favor preencha este campo seguindo o seguinte formato: AAAA-MM-DD HH:MM:SS')"></td> </tr>
           
             <tr><th colspan="2">SpecialRegimes</th></tr>
-            <tr> <th>SelfBillingIndicator:</th> <td><input id="SelfBillingIndicator" type="text" name="nome" value="" pattern="[0-1]" oninvalid="this.setCustomValidity('Preencha este campo apenas com 0 ou 1.')" oninput="setCustomValidity('')"></td> </tr>
-            <tr> <th>CashVATSchemeIndicator:</th> <td><input id="CashVATSchemeIndicator" type="text" name="nome" value="" pattern="[0-1]" oninvalid="this.setCustomValidity('Preencha este campo apenas com 0 ou 1.')" oninput="setCustomValidity('')"></td> </tr>
-            <tr> <th>ThirdPartiesBillingIndicator:</th> <td><input id="ThirdPartiesBillingIndicator" type="text" name="nome" value="" pattern="[0-1]" oninvalid="this.setCustomValidity('Preencha este campo apenas com 0 ou 1.')" oninput="setCustomValidity('')"></td> </tr> <tr> <th>SourceID:</th> <td><input id="SourceID" type="text" name="nome" value=""></td> </tr>
-            <tr> <th>SystemEntryDate:</th> <td><input id="SystemEntryDate" type="text" name="nome" value=""></td> </tr>
+            <tr> <th>SelfBillingIndicator:</th> <td><input id="SelfBillingIndicator" required type="text" name="nome" value="" pattern="[0-1]" oninvalid="this.setCustomValidity('Preencha este campo apenas com 0 ou 1.')" oninput="setCustomValidity('')"></td> </tr>
+            <tr> <th>CashVATSchemeIndicator:</th> <td><input id="CashVATSchemeIndicator" required type="text" name="nome" value="" pattern="[0-1]" oninvalid="this.setCustomValidity('Preencha este campo apenas com 0 ou 1.')" oninput="setCustomValidity('')"></td> </tr>
+            <tr> <th>ThirdPartiesBillingIndicator:</th> <td><input id="ThirdPartiesBillingIndicator" required type="text" name="nome" value="" pattern="[0-1]" oninvalid="this.setCustomValidity('Preencha este campo apenas com 0 ou 1.')" oninput="setCustomValidity('')"></td> </tr>
+            <tr> <th>SystemEntryDate:</th> <td><input id="SystemEntryDate" type="text" required name="nome" value=""></td> </tr>
             
-            <tr> <th>CustomerID:</th> <td><input id="CustomerID" type="text" name="nome" value="" pattern=".{1,30}" oninvalid="this.setCustomValidity('Preencha este campo com um máximo de 30 carateres.')" oninput="setCustomValidity('')"></td> </tr><tr id="Lines"><th colspan="2">Lines</th></tr>
+            <tr> <th>CustomerID:</th> <td><input id="CustomerID" type="text" name="nome" required value="" pattern=".{1,30}" oninvalid="this.setCustomValidity('Preencha este campo com um máximo de 30 carateres.')" oninput="setCustomValidity('')"></td> </tr><tr id="Lines"><th colspan="2">Lines</th></tr>
             <tr id="btnAddLine"><th colspan="2"><button type="button" id="bt_editar">Add Line</button> </th></tr>
             <tr id="DocumentTotal"><th colspan="2">DocumentTotal</th></tr>
             <tr> <th>TaxPayable:</th> <td><input id="TaxPayable" type="text" name="nome" disabled value=""></td> </tr>
             <tr> <th>NetTotal:</th> <td><input id="NetTotal" type="text" name="nome" disabled value=""></td> </tr>
             <tr> <th>GrossTotal:</th> <td><input id="GrossTotal" type="text" name="nome" disabled value=""></td> </tr>
             <tr id="btAtualizar"><th><input id="bt_limpar" name="reset" type="reset" value="Limpar" onclick="limparFormulario('formularioInvoice');
-        return false;" /></th><td colspan="2"><button id="btnAtualizar" type="button" class="bt_atualizar">Inserir | Editar</button> </td></tr>
+        return false;" /></th><td colspan="2"><input id="btnAtualizar" type="submit" class="bt_atualizar" value="Inserir | Editar"> </td></tr>
         </table>
     </form>
 </div>

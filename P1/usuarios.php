@@ -73,7 +73,7 @@ function cadastrarUsuário() {
 <script src="funcoesFormulario.js"></script>
 <div id="editar_perfil">
     <br><h3 style="text-align:left;">  Adicionar utilizador</h3><br>
-    <form id="editar_form" action="cadastrar.php" method="post" >
+    <form id="editar_form" action="cadastrar.php" method="post" onsubmit="formSuccess('Utilizador')">
         <table id="tbl_editarperfil">
             <tr><th>Username: </th> <td><input type="text" id="username"  required  name="username"></td></tr>
             <tr><th>Senha: </th> <td> <input type="password" id="nova_senha" name="senha"  required  pattern=".{6,20}$" oninvalid="this.setCustomValidity('A password tem de ter entre 6 e 20 carateres.')" oninput="setCustomValidity('')"></td></tr>
@@ -88,7 +88,7 @@ function cadastrarUsuário() {
     </form>
     <br>
 
-    <?php //onsubmit="formSuccess('Utilizador')"
+    <?php 
     getUsuarios();
     ?>
 </div>
